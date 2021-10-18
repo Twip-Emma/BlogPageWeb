@@ -1,17 +1,28 @@
+<!--
+ * @Author: 七画一只妖
+ * @Date: 2021-10-17 22:46:46
+ * @LastEditors: 七画一只妖
+ * @LastEditTime: 2021-10-18 12:37:38
+ * @Description: file content
+-->
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <hr>
+    <Login></Login>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import Login from './components/Login.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Login
   }
 }
 </script>
