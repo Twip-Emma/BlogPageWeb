@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-18 12:29:43
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-10-20 21:14:33
+ * @LastEditTime: 2021-10-20 21:03:18
  * @Description: file content
 -->
 <template>
@@ -12,6 +12,7 @@
       <form @submit.prevent="getInfo" method="POST">
           账号：<input type="text" v-model="userInfo.userCard"><br>
           密码：<input type="text" v-model="userInfo.userPass"><br>
+          昵称：<input type="text" v-model="userInfo.userName"><br>
         <button type="submit">提交（POST）</button>
       </form>
       <hr />
@@ -25,7 +26,7 @@
 export default {
   data() {
     return {
-        message:"这是登录界面",
+        message:"这是注册界面",
       userInfo: {
         userCard: "",
         userPass: "",
@@ -45,7 +46,7 @@ export default {
 //POST请求
 function loadXMLDoc(userData) {
   var httpRequest = new XMLHttpRequest();
-  let url = "/api/login/goTo";
+  let url = "/api/register/newUser";
   httpRequest.open("POST", url, true);
   httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
   httpRequest.send(userData);
