@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-25 11:13:11
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-10-27 19:06:23
+ * @LastEditTime: 2021-11-04 22:35:25
  * @Description: file content
 -->
 <template>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name:"Article",
     data() {
@@ -29,23 +30,17 @@ export default {
     methods:{
         getArticleInfo(){
             console.log(JSON.stringify(this.articleInputByUser))
-            let setData = JSON.stringify(this.articleInputByUser)
-            reqNewArticle(setData)
+            let setData = this.articleInputByUser
+            axios.post("/api/article/newArticle",setData).then(
+                response => {
+                    console.log(response.data)
+                },
+                error => {
+                    console.log(error.message)
+                }
+            )
         }
     }
-}
-
-function reqNewArticle(setData){
-  var httpRequest = new XMLHttpRequest();
-  let url = "/api/article/newArticle";
-  httpRequest.open("POST", url, true);
-  httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
-  httpRequest.send(setData);
-
-  httpRequest.onreadystatechange = function () {
-      let re = httpRequest.responseText;
-      console.log(re)
-  }
 }
 </script>
 

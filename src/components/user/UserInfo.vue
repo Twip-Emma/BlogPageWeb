@@ -2,17 +2,17 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-21 08:07:26
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-10-28 09:29:56
+ * @LastEditTime: 2021-11-04 09:32:05
  * @Description: file content
 -->
 <template>
   <div>
-    <button @click="getInfo">点我获取当前你的个人信息</button>
+    <button @click="getInfo">点我获取你已发布的文章</button>
     <div>
-      <div
+      <div class="articleItem"
         v-for="item in articleList"
         :key="item.articleId"
-        @click="getComment(item)"
+        @click="getComment(item.articleId,item.articleTitle,item)"
       >
         {{ item.articleTitle }}
       </div>
@@ -34,14 +34,21 @@ let vm = {
       this.getData();
       // this.articleList.push({ title: "额外的文章" });
     },
-		getComment(item){
-			let res = this.showArticleInfo(item)
-			console.log(res + "|||res")
+		getComment(articleId,articleTitle,article){
+			let res = this.showArticleInfo(articleId)
+      res.forEach(element => {
+        if(element.articleTitle === articleTitle){
+          console.log("这篇文章正文是" + JSON.stringify(element.articleContext))
+        }
+      });
+			// 传递数据
+      this.$bus.$emit("sendArticleInfo",article)
 		},
     getData() {
+      this.articleList = []
       let res;
       var httpRequest = new XMLHttpRequest();
-      let url = "/api/userInfo/getUserAllArticle";
+      let url = "/api/article/getUserAllArticle";
       httpRequest.open("POST", url, false);
       httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
       httpRequest.onreadystatechange = function () {
@@ -64,11 +71,11 @@ let vm = {
         this.articleList.push(res[key]);
       }
     },
-    showArticleInfo(article) {
+    showArticleInfo(articleId) {
 			console.log("showArticleInfo触发")
       let res;
       var httpRequest = new XMLHttpRequest();
-      let url = "/api/userInfo/getUserAllArticle";
+      let url = "/api/article/getUserAllArticle";
       httpRequest.open("POST", url, false);
       httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
       httpRequest.onreadystatechange = function () {
@@ -80,9 +87,9 @@ let vm = {
           res = data;
         }
       };
-      httpRequest.send(article.articleId);
+      httpRequest.send(articleId);
 			return res
-    },
+    }
   },
 };
 
@@ -91,5 +98,8 @@ let vm = {
 export default vm;
 </script>
 
-<style>
+<style scoped>
+.articleItem:hover {
+  background: #ddd;
+}
 </style>
