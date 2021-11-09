@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-18 12:29:43
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-10-20 21:03:18
+ * @LastEditTime: 2021-11-09 13:54:24
  * @Description: file content
 -->
 <template>
@@ -16,13 +16,12 @@
         <button type="submit">提交（POST）</button>
       </form>
       <hr />
-      <!-- <button @click="getInfo2">点我</button> -->
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -35,27 +34,19 @@ export default {
     };
   },
   methods: {
+    //注册
     getInfo() {
-      console.log(JSON.stringify(this.userInfo));
-      let userData = JSON.stringify(this.userInfo);
-      loadXMLDoc(userData);
+      axios.post("/api/register/newUser",this.userInfo).then(
+        response => {
+          console.log(response.data)
+        },
+        error => {
+          console.log(error.message)
+        }
+      )
     },
   },
 };
-
-//POST请求
-function loadXMLDoc(userData) {
-  var httpRequest = new XMLHttpRequest();
-  let url = "/api/register/newUser";
-  httpRequest.open("POST", url, true);
-  httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
-  httpRequest.send(userData);
-
-  httpRequest.onreadystatechange = function () {
-    let re = httpRequest.responseText;
-    console.log(re);
-  };
-}
 </script>
 
 <style>

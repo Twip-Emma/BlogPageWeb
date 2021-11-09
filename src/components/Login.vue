@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-18 12:29:43
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-10-20 21:14:33
+ * @LastEditTime: 2021-11-09 13:53:44
  * @Description: file content
 -->
 <template>
@@ -10,8 +10,8 @@
     <h1>{{ message }}</h1>
     <div id="root">
       <form @submit.prevent="getInfo" method="POST">
-          账号：<input type="text" v-model="userInfo.userCard"><br>
-          密码：<input type="text" v-model="userInfo.userPass"><br>
+        账号：<input type="text" v-model="userInfo.userCard" /><br />
+        密码：<input type="text" v-model="userInfo.userPass" /><br />
         <button type="submit">提交（POST）</button>
       </form>
       <hr />
@@ -21,47 +21,41 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from "axios";
 export default {
   data() {
     return {
-        message:"这是登录界面",
+      message: "这是登录界面",
       userInfo: {
         userCard: "",
         userPass: "",
-        userName: ""
-      }
+      },
     };
   },
   methods: {
+    //登录
     getInfo() {
-      console.log(JSON.stringify(this.userInfo));
-      let userData = JSON.stringify(this.userInfo);
-      loadXMLDoc(userData);
+      axios
+        .post("/api/login/goTo",this.userInfo)
+        .then(
+          (response) => {
+            console.log(response.data);
+          },
+          (error) => {
+            console.log(error.message);
+          }
+        );
     },
   },
 };
-
-//POST请求
-function loadXMLDoc(userData) {
-  var httpRequest = new XMLHttpRequest();
-  let url = "/api/login/goTo";
-  httpRequest.open("POST", url, true);
-  httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
-  httpRequest.send(userData);
-
-  httpRequest.onreadystatechange = function () {
-    let re = httpRequest.responseText;
-    console.log(re);
-  };
-}
 </script>
+//POST请求
 
 <style>
 h1 {
   text-align: center;
 }
-.root{
+.root {
   text-align: center;
 }
 </style>
