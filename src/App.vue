@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-17 22:46:46
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-04 09:36:27
+ * @LastEditTime: 2021-11-08 11:32:40
  * @Description: file content
 -->
 <template>
@@ -12,12 +12,12 @@
       <Login></Login>
       <hr />
       <Register></Register>
-      <hr>
-      <UserInfo></UserInfo>
-      <hr>
+      <hr />
+      <UserInfo :articleList="articleList"></UserInfo>
+      <hr />
       <Article></Article>
-      <hr>
-      <ArticleInfo :sendArticleInfo="articleData"/>
+      <hr />
+      <ArticleInfo />
     </div>
     <!-- <hr> -->
     <!-- <Rotation/> -->
@@ -27,9 +27,9 @@
 <script>
 import Register from "./components/Register.vue";
 import Login from "./components/Login.vue";
-import UserInfo from "./components/user/UserInfo.vue"
-import Article from "./components/article/Article.vue"
-import ArticleInfo from "./components/article/ArticleInfo.vue"
+import UserInfo from "./components/user/UserInfo.vue";
+import Article from "./components/article/Article.vue";
+import ArticleInfo from "./components/article/ArticleInfo.vue";
 
 export default {
   name: "App",
@@ -38,31 +38,27 @@ export default {
     Login,
     UserInfo,
     Article,
-    ArticleInfo
+    ArticleInfo,
   },
   data() {
     return {
-      articleData:{}
-    }
+      // articleData: {},
+      articleList: []
+    };
   },
-  methods: {
-    sendArticleInfo(articleInfo){
-      this.articleData = {
-        articleId: articleInfo.articleId,
-        userId: articleInfo.userId,
-        articleTitle: articleInfo.articleTitle,
-        articleContext: articleInfo.articleContext,
-        articleGoodEl: articleInfo.articleGoodEl,
-        articleBadEl: articleInfo.articleBadEl
+  methods: {},
+  mounted() {
+    this.$bus.$on("sendUserAllArticle", (userAllArticleData) => {
+      console.log("opes!");
+      console.log(userAllArticleData)
+      for (var item in userAllArticleData) {
+        this.articleList.push(userAllArticleData[item]);
       }
-    }
+    });
   },
-  mounted(){
-    this.$bus.$on("sendArticleInfo",this.sendArticleInfo)
+  beforeDestroy() {
+    this.$bus.$off("sendUserAllArticle")
   },
-  beforeDestroy(){
-    this.$bus.$off("sendArticleInfo")
-  }
 };
 </script>
 
