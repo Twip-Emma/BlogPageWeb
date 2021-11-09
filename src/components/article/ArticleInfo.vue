@@ -2,15 +2,18 @@
  * @Author: 七画一只妖
  * @Date: 2021-11-04 08:59:35
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-08 11:13:59
+ * @LastEditTime: 2021-11-09 14:28:44
  * @Description: file content
 -->
 <template>
   <div>
-    <h1>文章标题:{{ articleData.articleTitle }}</h1>
-    <h5>文章id:{{ articleData.articleId }}</h5>
-    <h5>用户id:{{ articleData.userId }}</h5>
+    <h1>{{ articleData.articleTitle }}</h1>
+    <!-- <h5>文章id:{{ articleData.articleId }}</h5>
+    <h5>用户id:{{ articleData.userId }}</h5> -->
     <p>{{ articleData.articleContext }}</p>
+    <div>
+      来自用户：{{articleData.userName}}
+    </div>
     <h6>
       喜欢：{{ articleData.articleGoodEl }}，不喜欢：{{
         articleData.articleBadEl
@@ -26,10 +29,11 @@ export default {
   data() {
     return {
       articleData: "",
+      userName:""
     };
   },
   methods: {
-    sendArticleInfo(articleInfo) {
+    sendArticleInfo(articleInfo,userName) {
       this.articleData = {
         articleId: articleInfo.articleId,
         userId: articleInfo.userId,
@@ -37,11 +41,14 @@ export default {
         articleContext: articleInfo.articleContext,
         articleGoodEl: articleInfo.articleGoodEl,
         articleBadEl: articleInfo.articleBadEl,
+        userName:userName
       };
     },
   },
   mounted() {
-    this.$bus.$on("sendArticleInfo", this.sendArticleInfo);
+    this.$bus.$on("sendArticleInfo",(data)=>{
+      this.sendArticleInfo(data["article"],data["userName"])
+    });
   },
   beforeDestroy() {
     this.$bus.$off("sendArticleInfo");

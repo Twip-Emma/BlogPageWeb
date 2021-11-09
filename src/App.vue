@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-17 22:46:46
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-08 11:32:40
+ * @LastEditTime: 2021-11-09 14:58:50
  * @Description: file content
 -->
 <template>
@@ -48,9 +48,12 @@ export default {
   },
   methods: {},
   mounted() {
+    //#####【区域1】登陆时，将文章列表显示出来
     this.$bus.$on("sendUserAllArticle", (userAllArticleData) => {
-      console.log("opes!");
-      console.log(userAllArticleData)
+      //添加前，清除上一次访问的信息
+      if(this.articleList !== []){
+        this.articleList = []
+      }
       for (var item in userAllArticleData) {
         this.articleList.push(userAllArticleData[item]);
       }
