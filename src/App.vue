@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-17 22:46:46
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-09 15:34:30
+ * @LastEditTime: 2021-11-10 20:13:54
  * @Description: file content
 -->
 <template>
@@ -18,6 +18,7 @@
       <Article></Article>
       <hr />
       <ArticleInfo />
+      <Comment/>
     </div>
     <!-- <hr> -->
     <!-- <Rotation/> -->
@@ -30,6 +31,7 @@ import Login from "./components/Login.vue";
 import UserInfo from "./components/user/UserInfo.vue";
 import Article from "./components/article/Article.vue";
 import ArticleInfo from "./components/article/ArticleInfo.vue";
+import Comment from "./components/article/Comment.vue";
 
 export default {
   name: "App",
@@ -39,6 +41,7 @@ export default {
     UserInfo,
     Article,
     ArticleInfo,
+    Comment
   },
   data() {
     return {
