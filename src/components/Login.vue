@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-18 12:29:43
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-14 21:59:53
+ * @LastEditTime: 2021-11-15 10:43:25
  * @Description: file content
 -->
 <template>
@@ -36,20 +36,21 @@ export default {
   methods: {
     //登录
     getInfo() {
-      //http://localhost:5000
-      // axios.post("/api/login/goTo", this.userInfo).then(
-        axios.post("http://localhost:5000/login/goTo", this.userInfo).then(
+      axios.post("http://localhost:5000/login/goTo", this.userInfo).then(
+        () => {
+          this.getAllArticle()
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      );
+    },
+    //获取该用户的所有文章
+    getAllArticle() {
+      axios.post("http://localhost:5000/article/getUserAllArticle").then(
         (response) => {
+          this.$bus.$emit("sendUserAllArticle", response.data);
           console.log(response.data);
-          axios.post("http://localhost:5000/article/getUserAllArticle").then(
-            (response) => {
-              this.$bus.$emit("sendUserAllArticle", response.data);
-              console.log(response.data);
-            },
-            (error) => {
-              console.log(error.message);
-            }
-          );
         },
         (error) => {
           console.log(error.message);

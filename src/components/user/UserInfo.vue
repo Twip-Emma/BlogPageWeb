@@ -49,8 +49,6 @@ let vm = {
             console.log(error.message);
           }
         );
-      
-      console.log("尝试获取所有评论")
       axios.post("/api/article/getAllComment",article.articleId).then(
         (response) => {
           console.log("请求所有评论成功：" + JSON.stringify(response.data));
