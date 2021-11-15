@@ -3,7 +3,7 @@
  * @Date: 2021-11-04 08:59:35
  * @LastEditors: 七画一只妖
 <<<<<<< HEAD
- * @LastEditTime: 2021-11-15 11:48:50
+ * @LastEditTime: 2021-11-15 14:33:18
 =======
  * @LastEditTime: 2021-11-08 11:13:59
  * @Description: file content
@@ -66,18 +66,23 @@ export default {
         })
         .then(
           (response) => {
-            console.log(response)
-            if(type==="A"){
-              this.articleData.articleGoodEl = Number(this.articleData.articleGoodEl) + 1
-            }else{
-              this.articleData.articleBadEl = Number(this.articleData.articleBadEl) + 1
+            if (response.data === "操作失败") {
+              alert("你不能对本篇文章重复评价！！");
+            } else {
+              if (type === "A") {
+                this.articleData.articleGoodEl =
+                  Number(this.articleData.articleGoodEl) + 1;
+              } else {
+                this.articleData.articleBadEl =
+                  Number(this.articleData.articleBadEl) + 1;
+              }
             }
           },
           (error) => {
             console.log(error.message);
           }
         );
-    }
+    },
   },
   mounted() {
     this.$bus.$on("sendArticleInfo", (data) => {

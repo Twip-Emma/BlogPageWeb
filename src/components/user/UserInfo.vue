@@ -2,12 +2,12 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-21 08:07:26
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-11 08:45:08
+ * @LastEditTime: 2021-11-15 14:59:16
  * @Description: file content
 -->
 <template>
   <div>
-    <!-- <button @click="getInfo">点我获取你已发布的文章</button> -->
+    <h1>个人主页</h1>
     <div>
       <div
         class="articleItem"

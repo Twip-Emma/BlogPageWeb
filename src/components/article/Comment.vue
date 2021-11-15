@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-11-10 19:42:03
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-15 10:38:53
+ * @LastEditTime: 2021-11-15 14:55:47
  * @Description: file content
 -->
 <template>
@@ -10,7 +10,7 @@
     <h2>评论...</h2>
     <div class="all-comment">
       <div v-for="item in AllCommentList" :key="item.commentId">
-        <p>{{ "xxxx" }} 说:</p>
+        <p>{{ item.userName }} 说:</p>
         <p>{{ item.commentContext }}</p>
         <div class="el">
           <button @click="updateCommentEl('A', item.commentId)">喜欢</button>
@@ -36,6 +36,7 @@ export default {
   name: "Comment",
   data() {
     return {
+      commentSender:"",
       articleId: "",
       AllCommentList: [],
       newComment: "",
@@ -50,8 +51,12 @@ export default {
           commentId: commentId,
         })
         .then(
-          () => {
-            this.newComments();
+          (req) => {
+            if (req.data === "操作失败") {
+              alert("你不能重复对一个评论进行评价！！");
+            } else {
+              this.newComments();
+            }
           },
           (error) => {
             console.log(error.message);
@@ -89,11 +94,13 @@ export default {
         }
       );
     },
+
   },
   mounted() {
     this.$bus.$on("sendAllComment", (data) => {
       this.AllCommentList = data["data"];
       this.articleId = data["articleId"];
+      this.commentSender = data["userName"]
       console.log("载入数据成功");
     });
   },
