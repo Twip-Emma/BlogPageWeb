@@ -2,14 +2,14 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-18 12:29:43
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-15 10:43:25
+ * @LastEditTime: 2021-11-15 20:28:55
  * @Description: file content
 -->
 <template>
   <div id="login">
     <h1>{{ message }}</h1>
     <div id="root">
-      <form @submit.prevent="getInfo" method="POST">
+      <form @submit.prevent="getInfo(userInfo)">
         账号：<input type="text" v-model="userInfo.userCard" /><br />
         密码：<input type="text" v-model="userInfo.userPass" /><br />
         <button type="submit">提交（POST）</button>
@@ -22,6 +22,7 @@
 
 <script>
 import axios from "axios";
+import {mapActions} from "vuex"
 axios.defaults.withCredentials = true;
 export default {
   data() {
@@ -34,34 +35,10 @@ export default {
     };
   },
   methods: {
-    //登录
-    getInfo() {
-      axios.post("http://localhost:5000/login/goTo", this.userInfo).then(
-        () => {
-          this.getAllArticle()
-        },
-        (error) => {
-          console.log(error.message);
-        }
-      );
-    },
-    //获取该用户的所有文章
-    getAllArticle() {
-      axios.post("http://localhost:5000/article/getUserAllArticle").then(
-        (response) => {
-          this.$bus.$emit("sendUserAllArticle", response.data);
-          console.log(response.data);
-        },
-        (error) => {
-          console.log(error.message);
-        }
-      );
-    },
+    ...mapActions({getInfo:"getInfo"})
   },
 };
 </script>
-//POST请求
-
 <style>
 h1 {
   text-align: center;

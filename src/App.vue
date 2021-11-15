@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-17 22:46:46
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-11 08:10:12
+ * @LastEditTime: 2021-11-15 20:29:26
  * @Description: file content
 -->
 <template>
@@ -13,7 +13,7 @@
       <hr />
       <Register></Register>
       <hr />
-      <UserInfo :articleList="articleList"></UserInfo>
+      <UserInfo></UserInfo>
       <hr />
       <Article></Article>
     </div>
@@ -43,26 +43,8 @@ export default {
   },
   data() {
     return {
-      // articleData: {},
-      articleList: [],
     };
-  },
-  methods: {},
-  mounted() {
-    //#####【区域1】登陆时，将文章列表显示出来
-    this.$bus.$on("sendUserAllArticle", (userAllArticleData) => {
-      //添加前，清除上一次访问的信息
-      if (this.articleList !== []) {
-        this.articleList = [];
-      }
-      for (var item in userAllArticleData) {
-        this.articleList.push(userAllArticleData[item]);
-      }
-    });
-  },
-  beforeDestroy() {
-    this.$bus.$off("sendUserAllArticle");
-  },
+  }
 };
 </script>
 

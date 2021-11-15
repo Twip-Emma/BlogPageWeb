@@ -2,14 +2,14 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-18 12:29:43
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-09 13:54:24
+ * @LastEditTime: 2021-11-15 20:36:30
  * @Description: file content
 -->
 <template>
   <div id="login">
     <h1>{{ message }}</h1>
     <div id="root">
-      <form @submit.prevent="getInfo" method="POST">
+      <form @submit.prevent="createNewUser(userInfo)" method="POST">
           账号：<input type="text" v-model="userInfo.userCard"><br>
           密码：<input type="text" v-model="userInfo.userPass"><br>
           昵称：<input type="text" v-model="userInfo.userName"><br>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import {mapActions} from 'vuex'
 export default {
   data() {
     return {
@@ -35,16 +35,7 @@ export default {
   },
   methods: {
     //注册
-    getInfo() {
-      axios.post("/api/register/newUser",this.userInfo).then(
-        response => {
-          console.log(response.data)
-        },
-        error => {
-          console.log(error.message)
-        }
-      )
-    },
+    ...mapActions({createNewUser:"createNewUser"})
   },
 };
 </script>
