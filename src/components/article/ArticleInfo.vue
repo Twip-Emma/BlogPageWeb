@@ -3,7 +3,7 @@
  * @Date: 2021-11-04 08:59:35
  * @LastEditors: 七画一只妖
 <<<<<<< HEAD
- * @LastEditTime: 2021-11-10 21:06:18
+ * @LastEditTime: 2021-11-11 08:36:14
 =======
  * @LastEditTime: 2021-11-08 11:13:59
  * @Description: file content
@@ -58,9 +58,9 @@ export default {
     //点赞&点踩
     updateArticleEl(type,articleId){
       if(type==="A"){
-        this.articleData.articleGoodEl += 1
+        this.articleData.articleGoodEl = Number(this.articleData.articleGoodEl) + 1
       }else{
-        this.articleData.articleBadEl += 1
+        this.articleData.articleBadEl = Number(this.articleData.articleBadEl) + 1
       }
       axios.post("/api/article/articleElChange",{
         type:type,

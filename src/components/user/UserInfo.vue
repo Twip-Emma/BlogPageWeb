@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-21 08:07:26
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-10 20:28:27
+ * @LastEditTime: 2021-11-11 08:45:08
  * @Description: file content
 -->
 <template>
@@ -54,7 +54,10 @@ let vm = {
       axios.post("/api/article/getAllComment",article.articleId).then(
         (response) => {
           console.log("请求所有评论成功：" + JSON.stringify(response.data));
-          this.$bus.$emit("sendAllComment",response.data)
+          this.$bus.$emit("sendAllComment",{
+            data:response.data,
+            articleId:article.articleId
+          })
         },
         (error) => {
           console.log(error.message);

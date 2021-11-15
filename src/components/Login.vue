@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-18 12:29:43
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-09 15:34:31
+ * @LastEditTime: 2021-11-14 21:59:53
  * @Description: file content
 -->
 <template>
@@ -22,6 +22,7 @@
 
 <script>
 import axios from "axios";
+axios.defaults.withCredentials = true;
 export default {
   data() {
     return {
@@ -35,10 +36,12 @@ export default {
   methods: {
     //登录
     getInfo() {
-      axios.post("/api/login/goTo", this.userInfo).then(
+      //http://localhost:5000
+      // axios.post("/api/login/goTo", this.userInfo).then(
+        axios.post("http://localhost:5000/login/goTo", this.userInfo).then(
         (response) => {
           console.log(response.data);
-          axios.post("/api/article/getUserAllArticle").then(
+          axios.post("http://localhost:5000/article/getUserAllArticle").then(
             (response) => {
               this.$bus.$emit("sendUserAllArticle", response.data);
               console.log(response.data);
