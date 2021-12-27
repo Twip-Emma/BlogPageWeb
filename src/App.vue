@@ -2,7 +2,7 @@
  * @Author: 七画一只妖
  * @Date: 2021-10-17 22:46:46
  * @LastEditors: 七画一只妖
- * @LastEditTime: 2021-11-15 20:29:26
+ * @LastEditTime: 2021-11-25 14:53:08
  * @Description: file content
 -->
 <template>
@@ -16,6 +16,8 @@
       <UserInfo></UserInfo>
       <hr />
       <Article></Article>
+      <hr />
+      <File/>
     </div>
     <hr />
     <ArticleInfo />
@@ -30,6 +32,7 @@ import UserInfo from "./components/user/UserInfo.vue";
 import Article from "./components/article/Article.vue";
 import ArticleInfo from "./components/article/ArticleInfo.vue";
 import Comment from "./components/article/Comment.vue";
+import File from '@/components/File'
 
 export default {
   name: "App",
@@ -40,6 +43,7 @@ export default {
     Article,
     ArticleInfo,
     Comment,
+    File
   },
   data() {
     return {
